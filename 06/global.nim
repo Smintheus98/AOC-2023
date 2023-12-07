@@ -8,7 +8,6 @@ type
     recordDist*: int
   Tournament* = object
     races*: seq[Race]
-  SingleRace* = Race
 
 proc countRecordBreaker*(race: Race): int =
   result = 0
@@ -26,8 +25,8 @@ proc recordBreakerKombos*(tournament: Tournament): int =
   for race in tournament.races:
     result *= race.countRecordBreaker
 
-proc toSingleRace*(tournament: Tournament): SingleRace =
-  result = SingleRace(time: 0, recordDist: 0)
+proc toSingleRace*(tournament: Tournament): Race =
+  result = Race(time: 0, recordDist: 0)
   for race in tournament.races:
     result.time *= 10 ^ ( log(race.time.float, 10.0).int + 1 )
     result.time += race.time
